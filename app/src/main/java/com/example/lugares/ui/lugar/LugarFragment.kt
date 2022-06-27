@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+
+import com.example.lugares.R
 import com.example.lugares.databinding.FragmentLugarBinding
 import com.example.lugares.viewmodel.LugarViewModel
 
 class LugarFragment : Fragment() {
 
+    private lateinit var lugarViewModel: LugarViewModel
     private var _binding: FragmentLugarBinding? = null
 
     // This property is only valid between onCreateView and
@@ -23,17 +27,18 @@ class LugarFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
+        lugarViewModel =
             ViewModelProvider(this).get(LugarViewModel::class.java)
 
         _binding = FragmentLugarBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        binding.addLugarFabButton.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_lugar_to_addLugarFragment2)
         }
-        return root
+
+
+
+        return binding.root
     }
 
     override fun onDestroyView() {
